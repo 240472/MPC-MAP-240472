@@ -9,6 +9,47 @@ if (read_only_vars.counter == 1)
 
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%% SENSOR PARAMETER EVALUATION (WEEK 2) %%%%%%%%%%%%%%%%%%%%%%%%
+
+persistent lidar_history
+lidar_history(read_only_vars.counter,:) = read_only_vars.lidar_distances;
+
+if(read_only_vars.counter == 2000)
+    lidar_sigma = std(lidar_history, 0, 1)
+    gnss_sigma = std(read_only_vars.gnss_history, 0, 1)
+
+    figure
+    for i = 1:8
+        subplot(2,4,i)
+        hist(lidar_history(:,i))
+        title(sprintf('Lidar Channel %d', i))
+        ylabel("Count")
+        xlabel("Distance")
+    end
+
+    figure
+    for i = 1:2
+        subplot(1,2,i)
+        hist(read_only_vars.gnss_history(:,i))
+        title(sprintf('GNSS Canal %d', i))
+        ylabel("Count")
+        xlabel("Position")
+    end
+
+    cov(lidar_history)
+    cov(read_only_vars.gnss_history)
+
+    x = -2:0.01:2;
+    figure
+    plot(x,[norm_pdf(x,0,lidar_sigma(1));norm_pdf(x,0,gnss_sigma(1))])
+    title("Normal PDF of Noise")
+    xlabel("Distance/Position")
+    ylabel("Probability")
+    legend("Lidar Channel 1", "GNSS Channel X")
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % 9. Update particle filter
 public_vars.particles = update_particle_filter(read_only_vars, public_vars);
 
