@@ -1,0 +1,7 @@
+x,y cíle
+x,y rohů "herní plochy"
+x,y počátků a konců zdí 1 řádek = 1 zeď
+
+
+zatím nemám tušení
+x,y gnss denied čtyřúhelník
