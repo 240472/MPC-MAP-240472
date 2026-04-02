@@ -8,12 +8,12 @@ target = get_target(public_vars.estimated_pose, public_vars.path);
 
 % II. Compute motion vector
 
-
+%Feedback linearization method
 xr = public_vars.estimated_pose(1);
 yr = public_vars.estimated_pose(2);
 theta = public_vars.estimated_pose(3);
 
-epsilon = 0.2;
+epsilon = 0.1;
 xp = xr+epsilon*cos(theta);
 yp = yr+epsilon*sin(theta);
 
@@ -22,14 +22,15 @@ xp_dot = kappa*(target(1)-xp);
 yp_dot = kappa*(target(2)-yp);
 
 v = xp_dot*cos(theta)+yp_dot*sin(theta);
+
+if v < 0.2
+    v = 0.2;
+end
+
 omega = (-xp_dot*sin(theta)+yp_dot*cos(theta))/epsilon;
 
 omega_r = (2*v+omega)/2;
 omega_l = (2*v-omega)/2;
-
-
-
-
 
 
 public_vars.motion_vector = [omega_r, omega_l]; %prava,leva

@@ -1,7 +1,7 @@
 function [public_vars] = student_workspace(read_only_vars,public_vars)
 %STUDENT_WORKSPACE Summary of this function goes here
 
-step_size = 0.5;
+step_size = 0.1;
 
 line_seg_x = 5:step_size:10;
 arc_seg_x = 1:step_size:5;
