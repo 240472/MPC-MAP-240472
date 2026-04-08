@@ -39,7 +39,7 @@ read_only_vars.gnss_position = [];
 % III. Set other given parameters
 read_only_vars.lidar_config = [0, 45, 90, 135, 180, 225, 270, 315] / 180 * pi; % (rad)
 read_only_vars.sampling_period = 0.1; % (s)
-read_only_vars.max_particles = 1000; % (-)
+read_only_vars.max_particles = 10; % (-)
 read_only_vars.counter = 1;
 
 % IV. Init variables for visualization
