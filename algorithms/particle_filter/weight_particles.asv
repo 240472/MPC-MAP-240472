@@ -6,11 +6,10 @@ N = size(particle_measurements, 1);
 
 lidar_distance_matrix = ones(N,1)*lidar_distances;
 
-inversed_weights = vecnorm(lidar_distance_matrix - particle_measurements, 2, 2);
-inversed_weights(abs(inversed_weights) < 1e-5) = 1e-5;
-
-weights = ones(N,1)./inversed_weights;
+weights = ones(N,1)./vecnorm(lidar_distance_matrix - particle_measurements, 2, 2);
 weights = weights/sum(weights);      %kinda dont know how to normalize
+
+weights(isinf(weights)) = 1;
 
 end
 

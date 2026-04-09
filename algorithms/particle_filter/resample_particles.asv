@@ -1,0 +1,23 @@
+function [new_particles] = resample_particles(particles, weights)
+%RESAMPLE_PARTICLES Summary of this function goes here
+
+weights = sort(weights);
+
+index = randi(size(particles,1), 1);
+
+for i = 1:size(particles,1)
+    beta = 2*max(weights)*rand(1,1);
+    while weights(index) < beta
+        beta = beta - weights(index);
+        index = index + 1;
+        if index > size(particles,1)
+            index = 1;
+        end
+    end
+    new_particles(i,:) = particles(index,:);
+end
+
+
+
+end
+

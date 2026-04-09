@@ -1,7 +1,11 @@
-function [public_vars] = init_particle_filter(read_only_vars, public_vars)
+function [public_vars] = init_particle_filter(read_only_vars, public_vars, particle_count)
 %INIT_PARTICLE_FILTER Summary of this function goes here
 
-particle_count = read_only_vars.max_particles;
+arguments
+    read_only_vars
+    public_vars
+    particle_count = read_only_vars.max_particles;   % default if not provided
+end
 
 low_bound_x = read_only_vars.map.limits(1);
 high_bound_x = read_only_vars.map.limits(3);
