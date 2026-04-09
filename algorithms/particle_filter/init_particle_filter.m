@@ -7,6 +7,8 @@ arguments
     particle_count = read_only_vars.max_particles;   % default if not provided
 end
 
+
+% Bounds for particles, so they won't generate outside of a map
 low_bound_x = read_only_vars.map.limits(1);
 high_bound_x = read_only_vars.map.limits(3);
 init_particles_x = low_bound_x + (high_bound_x - low_bound_x) * rand(1, particle_count);

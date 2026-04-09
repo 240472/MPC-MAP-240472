@@ -19,7 +19,9 @@ weights = weight_particles(measurements, read_only_vars.lidar_distances);
 particles = resample_particles(particles, weights);
 
 
-persistent_particles_perc = 0.95;
+
+% IV. Adding fresh particles
+persistent_particles_perc = 0.8;
 
 random_particles_count = (size(particles,1)) - floor(size(particles,1) * persistent_particles_perc) + 1;
 

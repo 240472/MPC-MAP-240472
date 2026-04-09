@@ -1,11 +1,13 @@
 function [new_particles] = resample_particles(particles, weights)
 %RESAMPLE_PARTICLES Summary of this function goes here
 
-
+% Sorting weights and particles
 [weights_sorted, idx] = sort(weights, 'ascend');
 particles_sorted = particles(idx, :);
 new_particles = zeros(size(particles));
 
+
+% Thruns heuristic resampling algorithm
 N = size(particles,1);
 
 index = randi(size(particles,1), 1);
