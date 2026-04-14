@@ -4,12 +4,19 @@ function [mu, sigma] = update_kalman_filter(read_only_vars, public_vars)
 mu = public_vars.mu;
 sigma = public_vars.sigma;
 
-% I. Prediction
-u = [];
-[mu, sigma] = ekf_predict(mu, sigma, u, public_vars.kf, read_only_vars.sampling_period);
+d = read_only_vars.agent_drive.interwheel_dist;
+v_r = public_vars.motion_vector(1);
+v_l = public_vars.motion_vector(2);
 
+omega = (v_r - v_l) / d;
+vt = (v_r + v_l) / 2;
+
+% I. Prediction
+u = [vt, omega];
+[mu, sigma] = ekf_predict(mu, sigma, u, public_vars.kf, read_only_vars.sampling_period)
+%
 % II. Measurement
-z = [];
+z = read_only_vars.gnss_position';
 [mu, sigma] = kf_measure(mu, sigma, z, public_vars.kf);
 
 end
