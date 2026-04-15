@@ -8,8 +8,8 @@ G = [1 0 -sin(mu(3))*vt*sampling_period;
      0 1 cos(mu(3))*vt*sampling_period; 
      0 0 1];
 
-new_mu = [mu(1)+cos(mu(3)*vt*sampling_period);
-          mu(2)+sin(mu(3)*vt*sampling_period);
+new_mu = [mu(1)+cos(mu(3))*vt*sampling_period;
+          mu(2)+sin(mu(3))*vt*sampling_period;
           mu(3)+omega*sampling_period];
 
 new_sigma = G*sigma*G'+ kf.R;

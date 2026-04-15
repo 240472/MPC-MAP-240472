@@ -4,7 +4,7 @@ function [public_vars] = student_workspace(read_only_vars,public_vars)
 step_size = 0.1;
 when_init_counter_N = 300;
 
-line1_y = 3:step_size:7.5;
+line1_y = 2:step_size:7.5;
 line2_x = 2:step_size:16;
 line3_y = flip(line1_y);
 
