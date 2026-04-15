@@ -7,7 +7,7 @@ if isempty(waypoint_counter)
     waypoint_counter = 1;
 end
 
-if norm(estimated_pose(1:2) - path(waypoint_counter,:)) < 0.15
+if norm(estimated_pose(1:2) - path(waypoint_counter,:)) < 0.25
     waypoint_counter = waypoint_counter + 1;
 end
 
