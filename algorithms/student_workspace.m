@@ -2,8 +2,8 @@ function [public_vars] = student_workspace(read_only_vars,public_vars)
 %STUDENT_WORKSPACE Summary of this function goes here
 
 step_size = 0.1;
-when_init_counter_N = 1;
-
+when_init_counter_N = 300;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+ 
 line1_y = 2:step_size:7.5;
 line2_x = 2:step_size:16;
 line3_y = flip(line1_y);

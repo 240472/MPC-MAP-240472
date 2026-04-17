@@ -24,13 +24,7 @@ xp_dot = kappa*(target(1)-xp);
 yp_dot = kappa*(target(2)-yp);
 
 v = xp_dot*cos(theta)+yp_dot*sin(theta);
-
-% if v < 0.2
-%     v = 0.2;
-% end
-
 omega = (-xp_dot*sin(theta)+yp_dot*cos(theta))/epsilon;
-
 
 omega_max = 10.0;  
 omega = max(-omega_max, min(omega_max, omega));

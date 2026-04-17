@@ -8,8 +8,8 @@ d = read_only_vars.agent_drive.interwheel_dist;
 v_r = public_vars.motion_vector(1);
 v_l = public_vars.motion_vector(2);
 
-omega = (v_r - v_l) / d
-vt = (v_r + v_l) / 2
+omega = (v_r - v_l) / d;
+vt = (v_r + v_l) / 2;
 
 % I. Prediction
 u = [vt, omega];
@@ -19,7 +19,6 @@ u = [vt, omega];
 z = read_only_vars.gnss_position';
 [mu, sigma] = kf_measure(mu, sigma, z, public_vars.kf);
 
-mu
 
 end
 
