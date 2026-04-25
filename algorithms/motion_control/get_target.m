@@ -11,7 +11,10 @@ if norm(estimated_pose(1:2) - path(waypoint_counter,:)) < 0.25
     waypoint_counter = waypoint_counter + 1;
 end
 
-target = path(waypoint_counter,:);
+if waypoint_counter <= size(path,1)
+    target = path(waypoint_counter,:);
+else
+    target = path(end,:);
 
 end
 

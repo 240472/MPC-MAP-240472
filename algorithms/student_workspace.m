@@ -52,9 +52,9 @@ public_vars.estimated_pose = estimate_pose(public_vars); % (x,y,theta)
 %public_vars.estimated_pose = read_only_vars.mocap_pose; % (x,y,theta)
 
 % 12. Path planning
-%public_vars.path = plan_path(read_only_vars, public_vars);
+public_vars.path = plan_path(read_only_vars, public_vars);
 %public_vars.path = [arc_seg_x, line_seg_x, sine_seg_x; arc_seg_y, line_seg_y, sine_seg_y]';
-public_vars.path = [line1_x, line2_x, line3_x; line1_y, line2_y, line3_y]';
+%public_vars.path = [line1_x, line2_x, line3_x; line1_y, line2_y, line3_y]';
 
 % 13. Plan next motion command
 public_vars = plan_motion(read_only_vars, public_vars);

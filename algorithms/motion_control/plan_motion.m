@@ -3,6 +3,10 @@ function [public_vars] = plan_motion(read_only_vars, public_vars)
 
 % I. Pick navigation target
 
+if isempty(public_vars.path)
+    return
+end
+
 target = get_target(public_vars.estimated_pose, public_vars.path);
 
 
