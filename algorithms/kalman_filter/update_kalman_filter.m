@@ -17,8 +17,10 @@ u = [vt, omega];
 %
 % II. Measurement
 z = read_only_vars.gnss_position';
-[mu, sigma] = kf_measure(mu, sigma, z, public_vars.kf);
 
+if ~isnan(z)
+    [mu, sigma] = kf_measure(mu, sigma, z, public_vars.kf);
+end
 
 end
 
