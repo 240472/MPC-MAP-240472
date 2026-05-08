@@ -21,7 +21,7 @@ if init_path
     init_path = 0;
 end
 
-if planning_required
+if 1
     
     path = astar(read_only_vars, public_vars);
     

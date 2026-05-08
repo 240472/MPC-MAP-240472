@@ -1,7 +1,7 @@
 function [mu, sigma] = update_kalman_filter(read_only_vars, public_vars)
 %UPDATE_KALMAN_FILTER Summary of this function goes here
 
-mu = public_vars.mu;
+mu = public_vars.estimated_pose;
 sigma = public_vars.sigma;
 
 d = read_only_vars.agent_drive.interwheel_dist;
@@ -18,8 +18,10 @@ u = [vt, omega];
 % II. Measurement
 z = read_only_vars.gnss_position';
 
-if ~isnan(z)
+if public_vars.kf_enabled
+
     [mu, sigma] = kf_measure(mu, sigma, z, public_vars.kf);
+
 end
 
 end

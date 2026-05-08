@@ -33,7 +33,7 @@ function [path] = astar(read_only_vars, public_vars)
     pose  = public_vars.estimated_pose(1:2);
 
     % temporary solution to start position
-    pose = [1,1]; 
+    %pose = [1,1]; 
     start = pose/read_only_vars.map.discretization_step;
     
     path  = [];

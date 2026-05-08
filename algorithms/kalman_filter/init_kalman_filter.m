@@ -30,6 +30,6 @@ end
 public_vars.kf.C = [1 0 0; 0 1 0];
 public_vars.kf.R = [8e-4 0 0; 0 8e-4 0; 0 0 5e-5];       % Better for long distances with high speed
 public_vars.kf.R = [8e-7 0 0; 0 8e-7 0; 0 0 5e-5];       % Better for careful and slow movement
-
+public_vars.estimated_pose = public_vars.mu;
 end
 

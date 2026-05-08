@@ -1,4 +1,4 @@
-function [public_vars] = plan_motion(read_only_vars, public_vars)
+function [public_vars] = plan_motion(read_only_vars, public_vars, new_path)
 %PLAN_MOTION Summary of this function goes here
 
 % I. Pick navigation target
@@ -7,7 +7,7 @@ if isempty(public_vars.path)
     return
 end
 
-target = get_target(public_vars.estimated_pose, public_vars.path);
+target = get_target(public_vars.estimated_pose, public_vars.path, new_path);
 
 
 % II. Compute motion vector
