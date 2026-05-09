@@ -1,10 +1,11 @@
 function [public_vars] = student_workspace(read_only_vars,public_vars)
 %STUDENT_WORKSPACE Summary of this function goes here
 
-persistent estimation_warning_counter 
-persistent use_estimation_warning
+persistent kidnapped_recovery_counter 
+persistent kidnapped_detection
 
-when_init_counter_N = 300;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+when_init_counter_N = 200;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+particle_count = 200;
 new_path = 0;
 
 if ~public_vars.pf_enabled
@@ -21,16 +22,16 @@ end
 
 if (read_only_vars.counter == 1)
     if ~public_vars.kf_enabled
-        use_estimation_warning = 1;
+        kidnapped_detection = 1;
     else
-        use_estimation_warning = 0;
+        kidnapped_detection = 0;
     end
-    estimation_warning_counter = 0;
+    kidnapped_recovery_counter = 0;
 end
 
 if (~public_vars.kf_enabled && ~public_vars.pf_enabled)
 
-    public_vars = init_particle_filter(read_only_vars, public_vars, 500);
+    public_vars = init_particle_filter(read_only_vars, public_vars, particle_count);
 
 elseif (read_only_vars.counter == when_init_counter_N)
     
@@ -57,23 +58,27 @@ if (read_only_vars.counter >= when_init_counter_N)
     [public_vars.mu, public_vars.sigma] = update_kalman_filter(read_only_vars, public_vars);
     
     % 11. Estimate current robot position
-    [public_vars.estimated_pose, estimation_warning_counter] = estimate_pose(public_vars, read_only_vars, particle_weights, estimation_warning_counter); % (x,y,theta)
+    [public_vars.estimated_pose, kidnapped_recovery_counter] = estimate_pose(public_vars, read_only_vars, particle_weights, kidnapped_recovery_counter); % (x,y,theta)
     
-    if ~use_estimation_warning
-        estimation_warning_counter = 0;
+    if ~kidnapped_detection
+        kidnapped_recovery_counter = 0;
     end
 
     % 12. Path planning
-    if (mod(read_only_vars.counter,100) == 0) || (estimation_warning_counter == read_only_vars.counter)
+    if read_only_vars.counter == when_init_counter_N || (kidnapped_recovery_counter == read_only_vars.counter)
         public_vars.path = plan_path(read_only_vars, public_vars);
         new_path = 1;
     end
     % 13. Plan next motion command
-    if estimation_warning_counter <= read_only_vars.counter
-       
+    if isnan(public_vars.estimated_pose)
+        public_vars.motion_vector = [0, 0];
+
+    elseif kidnapped_recovery_counter <= read_only_vars.counter
         public_vars = plan_motion(read_only_vars, public_vars, new_path);
+
     else
         public_vars.motion_vector = [0.02, -0.02];
+
     end
 
 end
