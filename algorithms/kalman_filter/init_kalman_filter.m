@@ -10,11 +10,10 @@ if read_only_vars.counter == 1      % For case without waiting period
     variance = (map_middle_x^2 + map_middle_y^2) / 3;
     public_vars.sigma = eye(3,3).*[variance; variance; (pi^2)/3];
 
-    public_vars.kf.Q = [0.5001^2 0; 0 0.4880^2]*4;        % Šum měření pro tenhle projekt
+    public_vars.kf.Q = [0.5001^2 0; 0 0.4880^2];        % Šum měření pro tenhle projekt
 
 else        % For case with waiting period
     
-    %Task 4
     public_vars.mu = [mean(read_only_vars.gnss_history)'; pi/2];        
     public_vars.sigma = eye(3,3).*[(std(read_only_vars.gnss_history).^2)'; (pi^2)/3];
 
@@ -24,7 +23,7 @@ end
 
 
 public_vars.kf.C = [1 0 0; 0 1 0];
-public_vars.kf.R = [8e-7 0 0; 0 8e-7 0; 0 0 5e-5];       % Procesní šum pro tenhle projekt...normálně to bývá naopak
+public_vars.kf.R = [8e-7 0 0; 0 8e-7 0; 0 0 48e-7];       % Procesní šum pro tenhle projekt...normálně to bývá naopak
 public_vars.estimated_pose = public_vars.mu;
 end
 

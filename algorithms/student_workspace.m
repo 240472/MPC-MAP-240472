@@ -2,9 +2,9 @@ function [public_vars] = student_workspace(read_only_vars,public_vars)
 %STUDENT_WORKSPACE Summary of this function goes here
 
 persistent kidnapped_recovery_counter 
-persistent kidnapped_detection
 
-when_init_counter_N = 200;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+
+when_init_counter_N = 300;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
 particle_count = 200;
 new_path = 0;
 
@@ -21,11 +21,6 @@ end
 % 8. Perform initialization procedure
 
 if (read_only_vars.counter == 1)
-    if ~public_vars.kf_enabled
-        kidnapped_detection = 1;
-    else
-        kidnapped_detection = 0;
-    end
     kidnapped_recovery_counter = 0;
 end
 
@@ -60,10 +55,6 @@ if (read_only_vars.counter >= when_init_counter_N)
     % 11. Estimate current robot position
     [public_vars.estimated_pose, kidnapped_recovery_counter] = estimate_pose(public_vars, read_only_vars, particle_weights, kidnapped_recovery_counter); % (x,y,theta)
     
-    if ~kidnapped_detection
-        kidnapped_recovery_counter = 0;
-    end
-
     % 12. Path planning
     if read_only_vars.counter == when_init_counter_N || (kidnapped_recovery_counter == read_only_vars.counter)
         public_vars.path = plan_path(read_only_vars, public_vars);

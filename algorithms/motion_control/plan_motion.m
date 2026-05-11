@@ -41,7 +41,6 @@ omega_l = (2*v-omega*d)/2;
 
 
 public_vars.motion_vector = [omega_r, omega_l]; %prava,leva
-%public_vars.motion_vector = [0.2, 0.2]; %prava,leva
 
 
 end
