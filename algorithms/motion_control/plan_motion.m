@@ -33,7 +33,7 @@ omega = (-xp_dot*sin(theta)+yp_dot*cos(theta))/epsilon;
 omega_max = 10.0;  
 omega = max(-omega_max, min(omega_max, omega));
 
-v = max(0.1, v * (1 - 0.5 * abs(omega) / omega_max));
+v = max(0.15, v * (1 - 0.5 * abs(omega) / omega_max));
 v = min(v, read_only_vars.agent_drive.max_vel);
 
 omega_r = (2*v+omega*d)/2;

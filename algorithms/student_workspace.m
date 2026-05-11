@@ -4,7 +4,7 @@ function [public_vars] = student_workspace(read_only_vars,public_vars)
 persistent kidnapped_recovery_counter 
 
 
-when_init_counter_N = 300;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+when_init_counter_N = 30;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
 particle_count = 200;
 new_path = 0;
 

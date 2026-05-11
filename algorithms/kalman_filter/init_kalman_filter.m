@@ -23,7 +23,7 @@ end
 
 
 public_vars.kf.C = [1 0 0; 0 1 0];
-public_vars.kf.R = [8e-7 0 0; 0 8e-7 0; 0 0 48e-7];       % Procesní šum pro tenhle projekt...normálně to bývá naopak
+public_vars.kf.R = [78e-7 0 0; 0 78e-7 0; 0 0 48e-7];       % Procesní šum pro tenhle projekt...normálně to bývá naopak
 public_vars.estimated_pose = public_vars.mu;
 end
 
