@@ -15,8 +15,8 @@ function [path] = astar(read_only_vars, public_vars)
                   1 1 1;
                   0 1 0];
 
-    inf_mask = imdilate(map == 1, inf_kernel);
-    
+    inf_mask = conv2(double(map == 1), double(inf_kernel), 'same') > 0;
+
     % convolution for danger zones near walls
     kernel =   [0 0 0 1 0 0 0
                 0 0 1 2 1 0 0

@@ -15,14 +15,14 @@ elseif public_vars.pf_enabled
     top_idx = idx(1:N);
     top_w   = sorted_w(1:N) / sum(sorted_w(1:N));
     
-    % Spočítej median theta z top částic
+    % Median theta z top částic
     x_median = median(particles_sorted(top_idx,1));
     y_median = median(particles_sorted(top_idx,2));
     theta_median = atan2(median(sin(particles_sorted(top_idx, 3))), ...
                          median(cos(particles_sorted(top_idx, 3))));
 
 
-    % Odfiltruj částice jejichž theta je daleko od medianu
+    % Filtrace částic jejichž theta je daleko od medianu
     max_pos_diff = 0.5;
     dist = sqrt((particles(top_idx,1) - x_median).^2 + ...
             (particles(top_idx,2) - y_median).^2);
@@ -36,9 +36,9 @@ elseif public_vars.pf_enabled
     valid = valid_xy & valid_theta;
 
 
-    % Použij jen validní částice
+    % Validní částice
     top_idx   = top_idx(valid);
-    top_w     = top_w(valid) / sum(top_w(valid)); % renormalizuj
+    top_w     = top_w(valid) / sum(top_w(valid));
 
     x_est     = sum(top_w .* particles_sorted(top_idx, 1));
     y_est     = sum(top_w .* particles_sorted(top_idx, 2));
@@ -48,7 +48,7 @@ elseif public_vars.pf_enabled
     new_estimated_pose = [x_est, y_est, theta_est];
 
     if isfinite(public_vars.estimated_pose)
-        if vecnorm(public_vars.estimated_pose(1:2) - new_estimated_pose(1:2),2,2) > 0.5
+        if vecnorm(public_vars.estimated_pose(1:2) - new_estimated_pose(1:2),2,2) > 0.75
             kidnapped_recovery_counter = read_only_vars.counter + 100;
         end
     end

@@ -4,7 +4,7 @@ function [public_vars] = student_workspace(read_only_vars,public_vars)
 persistent kidnapped_recovery_counter 
 
 
-when_init_counter_N = 30;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
+when_init_counter_N = 300;      % 1 -> Robot starts immediatelly, N > 1 -> Robot collects data before starting
 particle_count = 200;
 new_path = 0;
 
@@ -19,7 +19,6 @@ else
 end
 
 % 8. Perform initialization procedure
-
 if (read_only_vars.counter == 1)
     kidnapped_recovery_counter = 0;
 end
@@ -60,6 +59,7 @@ if (read_only_vars.counter >= when_init_counter_N)
         public_vars.path = plan_path(read_only_vars, public_vars);
         new_path = 1;
     end
+
     % 13. Plan next motion command
     if isnan(public_vars.estimated_pose)
         public_vars.motion_vector = [0, 0];
